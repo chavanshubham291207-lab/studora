@@ -1,0 +1,15 @@
+{
+  "name": "studora-root",
+  "version": "1.0.0",
+  "description": "Root package runner for Studora - All-in-one Student Platform",
+  "main": "server/server.js",
+  "scripts": {
+    "install-all": "npm install && cmd.exe /c \"npm install --prefix server\" && cmd.exe /c \"npm install --prefix client\"",
+    "client": "npm run dev --prefix client",
+    "server": "npm start --prefix server",
+    "dev": "concurrently \"npm run client\" \"npm run server\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

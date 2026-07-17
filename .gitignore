@@ -1,0 +1,22 @@
+# Node modules
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Local databases (mock fallback files)
+server/data/*.json
+!server/data/.gitkeep
+
+# Environment files
+.env
+server/.env
+client/.env
+
+# Build outputs
+dist/
+client/dist/
+build/
+
+# Operating System files
+.DS_Store
+Thumbs.db
