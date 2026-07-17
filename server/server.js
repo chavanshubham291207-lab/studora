@@ -39,14 +39,15 @@ app.use('/api/ai', aiRoutes);
 app.use('/api/certifications', certificationRoutes);
 
 // Base route for server status
-app.get('/', (req, res) => {
-  const db = require('./config/db');
-  res.json({
-    message: 'Welcome to Studora API Server',
-    status: 'online',
-    databaseMode: db.dbMode,
-    timestamp: new Date().toISOString()
-  });
+app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+
+// Serve React app for any non-API route (React Router fallback)
+app.get('*', (req, res) => {
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
+  } else {
+    res.status(404).json({ message: 'API endpoint not found' });
+  }
 });
 
 // Start Server

@@ -5,6 +5,8 @@
   "main": "server/server.js",
   "scripts": {
     "install-all": "npm install && cmd.exe /c \"npm install --prefix server\" && cmd.exe /c \"npm install --prefix client\"",
+    "build": "npm run build --prefix client",
+    "start": "node server/server.js",
     "client": "npm run dev --prefix client",
     "server": "npm start --prefix server",
     "dev": "concurrently \"npm run client\" \"npm run server\""
