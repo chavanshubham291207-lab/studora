@@ -41,13 +41,14 @@ app.use('/api/certifications', certificationRoutes);
 // Base route for server status
 app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 
+// Ensure all unhandled API routes return JSON (not Express default HTML like Cannot GET/POST)
+app.use('/api/*', (req, res) => {
+  res.status(404).json({ message: 'API endpoint not found', status: 404 });
+});
+
 // Serve React app for any non-API route (React Router fallback)
 app.get('*', (req, res) => {
-  if (!req.path.startsWith('/api')) {
-    res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
-  } else {
-    res.status(404).json({ message: 'API endpoint not found' });
-  }
+  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
 });
 
 // Start Server

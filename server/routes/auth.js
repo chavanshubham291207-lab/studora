@@ -60,6 +60,16 @@ router.post('/register', async (req, res) => {
   }
 });
 
+// @route   GET api/auth/register
+// @desc    Inform users that registration requires POST
+router.get('/register', (req, res) => {
+  res.status(405).json({
+    message: 'Registration requires a POST request with name, email, and password in the JSON body.',
+    status: 'error',
+    method: 'POST'
+  });
+});
+
 // @route   POST api/auth/login
 // @desc    Authenticate user & get token
 router.post('/login', async (req, res) => {
@@ -96,6 +106,16 @@ router.post('/login', async (req, res) => {
     console.error(err);
     res.status(500).json({ message: 'Server error during login' });
   }
+});
+
+// @route   GET api/auth/login
+// @desc    Inform users that login requires POST
+router.get('/login', (req, res) => {
+  res.status(405).json({
+    message: 'Login requires a POST request with email and password in the JSON body.',
+    status: 'error',
+    method: 'POST'
+  });
 });
 
 // @route   GET api/auth/me
