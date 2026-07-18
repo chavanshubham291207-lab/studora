@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
 
-export const API_BASE = (import.meta.env.VITE_API_URL || "https://studora.onrender.com") + "/api";
+export const API_BASE = "https://studora.onrender.com/api";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
