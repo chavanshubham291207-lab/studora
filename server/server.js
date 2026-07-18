@@ -56,14 +56,26 @@ const PORT = process.env.PORT || 5000;
 const startServer = async () => {
   // Connect to database
   await connectDB();
-  
+
   // Seed initial data if database is empty
   await seedData();
 
-  app.listen(PORT, () => {
-    console.log(`\n🪐 [SERVER RUNNING]: Studora server started on port ${PORT}`);
-    console.log(`📡 [API URL]: http://localhost:${PORT}`);
-  });
+  const startListening = (port) => {
+    const server = app.listen(port, () => {
+      console.log(`\n🪐 [SERVER RUNNING]: Studora server started on port ${port}`);
+      console.log(`📡 [API URL]: http://localhost:${port}`);
+    });
+    server.on('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
+        console.warn(`Port ${port} in use, trying next port...`);
+        startListening(port + 1);
+      } else {
+        console.error('Server error:', err);
+      }
+    });
+  };
+
+  startListening(PORT);
 };
 
 startServer().catch(err => {
